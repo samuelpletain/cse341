@@ -2,6 +2,10 @@ const connectionString = process.env.ATLAS_URI || "";
 
 const MongoClient = require('mongodb').MongoClient
 
-const db = MongoClient.connect(connectionString);
+try {
+  const db = MongoClient.connect(connectionString);
+} catch (err) {
+  console.log(err.message);
+}
 
 module.exports = db;
