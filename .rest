@@ -2,3 +2,12 @@ GET http://localhost:3000 HTTP/1.1
 
 ###
 GET https://cse341-tk0r.onrender.com/ HTTP/1.1
+
+###
+GET http://localhost:3000/contacts HTTP/1.1
+
+###
+GET http://localhost:3000/contacts/1 HTTP/1.1
+
+###
+GET http://localhost:3000/contacts/643f73592cec8ebd2a3cc169 HTTP/1.1
