@@ -30,7 +30,7 @@ Content-Type: application/json
 
 {
   "favoriteColor": "green",
-  "firstName": "Seth"
+  "firstName": "Lynn"
 }
 
 ###
@@ -44,3 +44,30 @@ GET https://cse341-tk0r.onrender.com/contacts/1 HTTP/1.1
 
 ###
 GET https://cse341-tk0r.onrender.com/contacts/643f73592cec8ebd2a3cc169 HTTP/1.1
+
+###
+POST https://cse341-tk0r.onrender.com/contacts/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "Jack",
+  "lastName": "Pletain",
+  "email": "jack.pletain@gmail.com",
+  "favoriteColor": "black",
+  "birthdate": "2016-09-13"
+}
+
+###
+DELETE https://cse341-tk0r.onrender.com/contacts/64570c4c3f8eb4a666139c94 HTTP/1.1
+
+###
+PUT https://cse341-tk0r.onrender.com/contacts/6440965772ad0b8ea4a9413c HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "Jack",
+  "lastName": "Pletain",
+  "email": "jack.pletain@gmail.com",
+  "favoriteColor": "black",
+  "birthdate": "2016-09-13"
+}

@@ -1,5 +1,5 @@
-const homePageFunction = (req, res, next) => {
-  res.json('Arielle Pletain');
-}
+const homePageFunction = (req, res) => {
+  res.json("Arielle Pletain");
+};
 
 module.exports = { homePageFunction };
