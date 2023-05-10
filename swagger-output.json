@@ -1,0 +1,168 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Contacts API",
+    "description": "This documentation provides a brief description of an Express API for creating, reading, updating and deleting contacts.",
+    "version": "1.0.0"
+  },
+  "host": "cse341-tk0r.onrender.com",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/contacts": {
+      "get": {
+        "summary": "This endpoint returns a list of all the contacts in the database.",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A array of contact objects.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Contact"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "This endpoint creates a new contact.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "contact",
+            "in": "body",
+            "description": "A contact object",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "A MongoDB ObjectId.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "643f75ca2cec8ebd2a3cc16c"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}": {
+      "get": {
+        "summary": "This endpoint returns the details of a single contact.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A contact object.",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "400": {
+            "description": "An invalid MongoDB ObjectId was provided."
+          }
+        }
+      },
+      "delete": {
+        "summary": "This endpoint deletes a single contact.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "An invalid MongoDB ObjectId was provided."
+          }
+        }
+      },
+      "put": {
+        "summary": "This endpoint updates the details of a single contact.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "contact",
+            "in": "body",
+            "description": "An updated contact object",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "An invalid MongoDB ObjectId was provided."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "John"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "john.doe@gmail.com"
+        },
+        "favoriteColor": {
+          "type": "string",
+          "example": "red"
+        },
+        "birthday": {
+          "type": "string",
+          "example": "1990-01-01"
+        }
+      },
+      "required": ["firstName", "lastName", "email", "favoriteColor", "birthday"]
+    }
+  }
+}
