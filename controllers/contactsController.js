@@ -57,11 +57,6 @@ const getContactById = async (req, res) => {
 
 const addContact = async (req, res) => {
   // #swagger.summary = "This endpoint creates a new contact."
-  /*  #swagger.parameters['contactId'] = {
-                in: 'path',
-                description: 'A MongoDB ObjectId',
-                required: true
-        } */
   /*  #swagger.parameters['contact'] = {
                 in: 'body',
                 description: 'A contact object',
@@ -73,12 +68,13 @@ const addContact = async (req, res) => {
     const collection = db.getDb().db("CSE341").collection("contacts");
     const newContact = await collection.insertOne(contact);
     /* #swagger.responses[201] = {
-            description: 'Returns a string representing a MongoDB ObjectId.',
+            description: 'Returns an object containing the result of the insertion and a string representing a MongoDB ObjectId.',
             schema: {
-                    _id: "643f75ca2cec8ebd2a3cc16c"
+                    acknowledged: true,
+                    insertedId: "643f75ca2cec8ebd2a3cc16c"
                 }
     } */
-    res.status(201).send({ _id: newContact.insertedId });
+    res.status(201).send(newContact);
   } catch (err) {
     /* #swagger.responses[500] = {
             description: 'An error occured.'

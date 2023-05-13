@@ -39,13 +39,6 @@
         "description": "",
         "parameters": [
           {
-            "name": "contactId",
-            "in": "path",
-            "description": "A MongoDB ObjectId",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "contact",
             "in": "body",
             "description": "A contact object",
@@ -57,11 +50,15 @@
         ],
         "responses": {
           "201": {
-            "description": "Returns a string representing a MongoDB ObjectId.",
+            "description": "Returns an object containing the result of the insertion and a string representing a MongoDB ObjectId.",
             "schema": {
               "type": "object",
               "properties": {
-                "_id": {
+                "acknowledged": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "insertedId": {
                   "type": "string",
                   "example": "643f75ca2cec8ebd2a3cc16c"
                 }
