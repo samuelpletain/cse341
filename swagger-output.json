@@ -50,7 +50,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Returns an object containing the result of the insertion and a string representing a MongoDB ObjectId.",
+            "description": "Returns an object containing the result of the request and a string representing a MongoDB ObjectId.",
             "schema": {
               "type": "object",
               "properties": {

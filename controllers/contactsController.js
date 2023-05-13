@@ -74,9 +74,10 @@ const addContact = async (req, res) => {
     const collection = db.getDb().db("CSE341").collection("contacts");
     const newContact = await collection.insertOne(contact);
     /* #swagger.responses[201] = {
-            description: 'Returns a string representing a MongoDB ObjectId.',
+            description: 'Returns an object containing the result of the request and a string representing a MongoDB ObjectId.',
             schema: {
-                    _id: "643f75ca2cec8ebd2a3cc16c"
+                    acknowledged: true,
+                    insertedId: "643f75ca2cec8ebd2a3cc16c"
                 }
     } */
     res.status(201).json(newContact);
