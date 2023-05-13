@@ -28,6 +28,9 @@
                 "name": "main"
               }
             }
+          },
+          "500": {
+            "description": "An error occured."
           }
         }
       },
@@ -67,6 +70,9 @@
                 "name": "main"
               }
             }
+          },
+          "500": {
+            "description": "An error occured."
           }
         }
       }
@@ -93,6 +99,9 @@
           },
           "400": {
             "description": "An invalid MongoDB ObjectId was provided."
+          },
+          "500": {
+            "description": "An error occured."
           }
         }
       },
@@ -114,6 +123,9 @@
           },
           "400": {
             "description": "An invalid MongoDB ObjectId was provided."
+          },
+          "500": {
+            "description": "An error occured."
           }
         }
       },
@@ -144,6 +156,9 @@
           },
           "400": {
             "description": "An invalid MongoDB ObjectId was provided."
+          },
+          "500": {
+            "description": "An error occured."
           }
         }
       }

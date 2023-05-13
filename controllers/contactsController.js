@@ -1,7 +1,7 @@
 const db = require("../db/connection");
 const ObjectId = require("mongodb").ObjectId;
 
-const getAllContacts = async (req, res, next) => {
+const getAllContacts = async (req, res) => {
   // #swagger.summary = "This endpoint returns a list of all the contacts in the database."
   try {
     const contacts = await db.getDb().db("CSE341").collection("contacts").find({}).toArray();
@@ -11,11 +11,14 @@ const getAllContacts = async (req, res, next) => {
     } */
     res.send(contacts).status(200);
   } catch (err) {
-    next(err);
+    /* #swagger.responses[500] = {
+            description: 'An error occured.'
+    } */
+    res.status(500).json(err);
   }
 };
 
-const getContactById = async (req, res, next) => {
+const getContactById = async (req, res) => {
   // #swagger.summary = "This endpoint returns the details of a single contact."
   /*  #swagger.parameters['contactId'] = {
                 in: 'path',
@@ -45,11 +48,14 @@ const getContactById = async (req, res, next) => {
     } */
     res.send(contact).status(200);
   } catch (err) {
-    next(err);
+    /* #swagger.responses[500] = {
+            description: 'An error occured.'
+    } */
+    res.status(500).json(err);
   }
 };
 
-const addContact = async (req, res, next) => {
+const addContact = async (req, res) => {
   // #swagger.summary = "This endpoint creates a new contact."
   /*  #swagger.parameters['contactId'] = {
                 in: 'path',
@@ -74,11 +80,14 @@ const addContact = async (req, res, next) => {
     } */
     res.status(201).send({ _id: newContact.insertedId });
   } catch (err) {
-    next(err);
+    /* #swagger.responses[500] = {
+            description: 'An error occured.'
+    } */
+    res.status(500).json(err);
   }
 };
 
-const deleteContactById = async (req, res, next) => {
+const deleteContactById = async (req, res) => {
   // #swagger.summary = "This endpoint deletes a single contact."
   /*  #swagger.parameters['contactId'] = {
                 in: 'path',
@@ -102,11 +111,14 @@ const deleteContactById = async (req, res, next) => {
     } */
     res.status(200).send();
   } catch (err) {
-    next(err);
+    /* #swagger.responses[500] = {
+            description: 'An error occured.'
+    } */
+    res.status(500).json(err);
   }
 };
 
-const updateContactById = async (req, res, next) => {
+const updateContactById = async (req, res) => {
   // #swagger.summary = "This endpoint updates the details of a single contact."
   /*  #swagger.parameters['contactId'] = {
                 in: 'path',
@@ -137,7 +149,10 @@ const updateContactById = async (req, res, next) => {
         } */
     res.status(204).send();
   } catch (err) {
-    next(err);
+    /* #swagger.responses[500] = {
+            description: 'An error occured.'
+    } */
+    res.status(500).json(err);
   }
 };
 
