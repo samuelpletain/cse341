@@ -9,7 +9,7 @@ const getAllContacts = async (req, res) => {
             description: 'Returns an array of contact objects.',
             schema: [{ $ref: '#/definitions/Contact' }]
     } */
-    res.send(contacts).status(200);
+    res.status(200).json(contacts);
   } catch (err) {
     /* #swagger.responses[500] = {
             description: 'An error occured.'
@@ -33,7 +33,7 @@ const getContactById = async (req, res) => {
       /* #swagger.responses[400] = {
             description: 'An invalid MongoDB ObjectId was provided.'
     } */
-      res.status(400).send("Please provide a valid contact id.");
+      res.status(400).json("Please provide a valid contact id.");
       return;
     }
     const contact = await db
@@ -46,7 +46,7 @@ const getContactById = async (req, res) => {
             description: 'Returns a contact object.',
             schema: { $ref: '#/definitions/Contact' },
     } */
-    res.send(contact).status(200);
+    res.status(200).json(contact);
   } catch (err) {
     /* #swagger.responses[500] = {
             description: 'An error occured.'
@@ -64,22 +64,22 @@ const addContact = async (req, res) => {
                 required: true
         } */
   try {
-    const contact = req.body;
+    const contact = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      favoriteColor: req.body.favoriteColor,
+      birthday: req.body.birthday
+    };
     const collection = db.getDb().db("CSE341").collection("contacts");
-    const insertRes = await collection.insertOne(contact);
+    const newContact = await collection.insertOne(contact);
     /* #swagger.responses[201] = {
             description: 'Returns a string representing a MongoDB ObjectId.',
             schema: {
                     _id: "643f75ca2cec8ebd2a3cc16c"
                 }
     } */
-    const newContact = await db
-      .getDb()
-      .db("CSE341")
-      .collection("contacts")
-      .find({ _id: insertRes.insertedId })
-      .toArray();
-    res.status(201).send(newContact);
+    res.status(201).json(newContact);
   } catch (err) {
     /* #swagger.responses[500] = {
             description: 'An error occured.'
@@ -103,7 +103,7 @@ const deleteContactById = async (req, res) => {
       /* #swagger.responses[400] = {
             description: 'An invalid MongoDB ObjectId was provided.'
     } */
-      res.status(400).send("Please provide a valid contact id.");
+      res.status(400).json("Please provide a valid contact id.");
       return;
     }
     await db.getDb().db("CSE341").collection("contacts").deleteOne({ _id: id });
@@ -141,10 +141,10 @@ const updateContactById = async (req, res) => {
       /* #swagger.responses[400] = {
             description: 'An invalid MongoDB ObjectId was provided.'
     } */
-      res.status(400).send("Please provide a valid contact id.");
+      res.status(400).json("Please provide a valid contact id.");
       return;
     }
-    await db.getDb().db("CSE341").collection("contacts").updateOne({ _id: id }, { $set: contact });
+    await db.getDb().db("CSE341").collection("contacts").replaceOne({ _id: id }, { $set: contact });
     /* #swagger.responses[204] = {
                 description: 'The specified contact has been edited.',
         } */
