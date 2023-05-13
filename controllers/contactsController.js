@@ -66,14 +66,19 @@ const addContact = async (req, res) => {
   try {
     const contact = req.body;
     const collection = db.getDb().db("CSE341").collection("contacts");
-    const newContact = await collection.insertOne(contact);
+    const insertRes = await collection.insertOne(contact);
     /* #swagger.responses[201] = {
-            description: 'Returns an object containing the result of the insertion and a string representing a MongoDB ObjectId.',
+            description: 'Returns a string representing a MongoDB ObjectId.',
             schema: {
-                    acknowledged: true,
-                    insertedId: "643f75ca2cec8ebd2a3cc16c"
+                    _id: "643f75ca2cec8ebd2a3cc16c"
                 }
     } */
+    const newContact = await db
+      .getDb()
+      .db("CSE341")
+      .collection("contacts")
+      .find({ _id: insertRes.insertedId })
+      .toArray();
     res.status(201).send(newContact);
   } catch (err) {
     /* #swagger.responses[500] = {
