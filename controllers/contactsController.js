@@ -135,9 +135,9 @@ const updateContactById = async (req, res) => {
         } */
   try {
     const contact = req.body;
-    let id = "";
+    let id = req.params.contactId;
     try {
-      id = new ObjectId(req.params.contactId);
+      id = new ObjectId(id);
     } catch (err) {
       /* #swagger.responses[400] = {
             description: 'An invalid MongoDB ObjectId was provided.'
@@ -145,7 +145,7 @@ const updateContactById = async (req, res) => {
       res.status(400).json("Please provide a valid contact id.");
       return;
     }
-    await db.getDb().db("CSE341").collection("contacts").replaceOne({ _id: id }, { $set: contact });
+    await db.getDb().db("CSE341").collection("contacts").updateOne({ _id: id }, { $set: contact });
     /* #swagger.responses[204] = {
                 description: 'The specified contact has been edited.',
         } */
