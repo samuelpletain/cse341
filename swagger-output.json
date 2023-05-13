@@ -7,7 +7,9 @@
   },
   "host": "cse341-tk0r.onrender.com",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/contacts": {
       "get": {
@@ -16,7 +18,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "A array of contact objects.",
+            "description": "Returns an array of contact objects.",
             "schema": {
               "type": "array",
               "items": {
@@ -34,6 +36,13 @@
         "description": "",
         "parameters": [
           {
+            "name": "contactId",
+            "in": "path",
+            "description": "A MongoDB ObjectId",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "contact",
             "in": "body",
             "description": "A contact object",
@@ -45,7 +54,7 @@
         ],
         "responses": {
           "201": {
-            "description": "A MongoDB ObjectId.",
+            "description": "Returns a string representing a MongoDB ObjectId.",
             "schema": {
               "type": "object",
               "properties": {
@@ -71,12 +80,13 @@
             "name": "contactId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "A MongoDB ObjectId"
           }
         ],
         "responses": {
           "200": {
-            "description": "A contact object.",
+            "description": "Returns a contact object.",
             "schema": {
               "$ref": "#/definitions/Contact"
             }
@@ -94,12 +104,13 @@
             "name": "contactId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "A MongoDB ObjectId"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "The specified contact has been deleted."
           },
           "400": {
             "description": "An invalid MongoDB ObjectId was provided."
@@ -114,7 +125,8 @@
             "name": "contactId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "A MongoDB ObjectId"
           },
           {
             "name": "contact",
@@ -128,7 +140,7 @@
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "The specified contact has been edited."
           },
           "400": {
             "description": "An invalid MongoDB ObjectId was provided."
@@ -159,10 +171,16 @@
         },
         "birthday": {
           "type": "string",
-          "example": "1990-01-01"
+          "example": "1990/01/01"
         }
       },
-      "required": ["firstName", "lastName", "email", "favoriteColor", "birthday"]
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "favoriteColor",
+        "birthday"
+      ]
     }
   }
 }

@@ -14,7 +14,7 @@ const doc = {
       $lastName: "Doe",
       $email: "john.doe@gmail.com",
       $favoriteColor: "red",
-      $birthday: "1990-01-01"
+      $birthday: "1990/01/01"
     }
   }
 };

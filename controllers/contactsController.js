@@ -6,7 +6,7 @@ const getAllContacts = async (req, res, next) => {
   try {
     const contacts = await db.getDb().db("CSE341").collection("contacts").find({}).toArray();
     /* #swagger.responses[200] = {
-            description: 'A array of contact objects.',
+            description: 'Returns an array of contact objects.',
             schema: [{ $ref: '#/definitions/Contact' }]
     } */
     res.send(contacts).status(200);
@@ -17,6 +17,11 @@ const getAllContacts = async (req, res, next) => {
 
 const getContactById = async (req, res, next) => {
   // #swagger.summary = "This endpoint returns the details of a single contact."
+  /*  #swagger.parameters['contactId'] = {
+                in: 'path',
+                description: 'A MongoDB ObjectId',
+                required: true
+        } */
   try {
     let id = req.params.contactId;
     try {
@@ -35,7 +40,7 @@ const getContactById = async (req, res, next) => {
       .find({ _id: id })
       .toArray();
     /* #swagger.responses[200] = {
-            description: 'A contact object.',
+            description: 'Returns a contact object.',
             schema: { $ref: '#/definitions/Contact' },
     } */
     res.send(contact).status(200);
@@ -46,6 +51,11 @@ const getContactById = async (req, res, next) => {
 
 const addContact = async (req, res, next) => {
   // #swagger.summary = "This endpoint creates a new contact."
+  /*  #swagger.parameters['contactId'] = {
+                in: 'path',
+                description: 'A MongoDB ObjectId',
+                required: true
+        } */
   /*  #swagger.parameters['contact'] = {
                 in: 'body',
                 description: 'A contact object',
@@ -57,7 +67,7 @@ const addContact = async (req, res, next) => {
     const collection = db.getDb().db("CSE341").collection("contacts");
     const newContact = await collection.insertOne(contact);
     /* #swagger.responses[201] = {
-            description: 'A MongoDB ObjectId.',
+            description: 'Returns a string representing a MongoDB ObjectId.',
             schema: {
                     _id: "643f75ca2cec8ebd2a3cc16c"
                 }
@@ -70,6 +80,11 @@ const addContact = async (req, res, next) => {
 
 const deleteContactById = async (req, res, next) => {
   // #swagger.summary = "This endpoint deletes a single contact."
+  /*  #swagger.parameters['contactId'] = {
+                in: 'path',
+                description: 'A MongoDB ObjectId',
+                required: true
+        } */
   try {
     let id = req.params.contactId;
     try {
@@ -82,6 +97,9 @@ const deleteContactById = async (req, res, next) => {
       return;
     }
     await db.getDb().db("CSE341").collection("contacts").deleteOne({ _id: id });
+    /* #swagger.responses[200] = {
+            description: 'The specified contact has been deleted.',
+    } */
     res.status(200).send();
   } catch (err) {
     next(err);
@@ -90,6 +108,11 @@ const deleteContactById = async (req, res, next) => {
 
 const updateContactById = async (req, res, next) => {
   // #swagger.summary = "This endpoint updates the details of a single contact."
+  /*  #swagger.parameters['contactId'] = {
+                in: 'path',
+                description: 'A MongoDB ObjectId',
+                required: true
+        } */
   /*  #swagger.parameters['contact'] = {
                 in: 'body',
                 description: 'An updated contact object',
@@ -109,6 +132,9 @@ const updateContactById = async (req, res, next) => {
       return;
     }
     await db.getDb().db("CSE341").collection("contacts").updateOne({ _id: id }, { $set: contact });
+    /* #swagger.responses[204] = {
+                description: 'The specified contact has been edited.',
+        } */
     res.status(204).send();
   } catch (err) {
     next(err);
